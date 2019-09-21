@@ -52,7 +52,7 @@ export class BuyComponent implements OnInit {
     }
 
     if(this.buyForm.valid){
-      this._order.sell(body).subscribe(
+      this._order.buy(body).subscribe(
         data => {
           this.successMessage = 'Your order is placed successfully. Order ID is ' + data.orderId;
           this.loading = false;
