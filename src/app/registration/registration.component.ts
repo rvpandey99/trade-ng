@@ -10,6 +10,8 @@ import { AuthService } from '../auth.service';
 export class RegistrationComponent implements OnInit {
   user:FormGroup;
   loading = false;
+  successMessage: String;
+  errorMessage: String;
 
   isValid(controlName){
     return this.user.get(controlName).invalid && this.user.get(controlName).touched;

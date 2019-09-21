@@ -15,7 +15,9 @@ import { BuyComponent } from './buy/buy.component';
 import { SellComponent } from './sell/sell.component';
 import { OrderComponent } from './order/order.component';
 import { TradesComponent } from './trades/trades.component';
+
 import { AuthService } from './auth.service';
+import { OrderService } from './order.service';
 
 @NgModule({
   declarations: [
@@ -35,7 +37,7 @@ import { AuthService } from './auth.service';
     ReactiveFormsModule,
     HttpClientModule,
   ],
-  providers: [AuthService,JwtHelperService],
+  providers: [AuthService,JwtHelperService,OrderService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

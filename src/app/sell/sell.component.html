@@ -1,15 +1,15 @@
 <app-navbar></app-navbar>
-<p *ngIf="successMessage" class="m-auto">
+<div *ngIf="successMessage" class="alert alert-success">
 {{successMessage}}
-</p>
-<p *ngIf="errorMessage && !successMessage">Status: {{errorMessage}}</p>
-<div *ngIf="errorMessage && !successMessage" id="error" class="alert alert-danger">
-  You can not buy and sell same stocks twice in a day.
 </div>
-<div *ngIf="warn" id="warn" class="alert alert-danger">
+<!-- <p *ngIf="errorMessage && !successMessage">Status: {{errorMessage}}</p> -->
+<div *ngIf="errorMessage && !successMessage" id="error" class="alert alert-danger">
+  Error: {{errorMessage}}
+</div>
+<!-- <div *ngIf="loading" id="warn" class="alert alert-danger">
   Backend and submit functionality has not been implemented yet. Your form contains below data:
   <br> {{sellForm.value | json}}
-</div>
+</div> -->
 
 <div *ngIf="!successMessage" class="col-md-6 offset-md-3 mt-3">
   <div class="card">

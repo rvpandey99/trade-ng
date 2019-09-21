@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AbstractControl, FormGroup, FormControl, Validators } from '@angular/forms';
+import { OrderService } from '../order.service';
 
 @Component({
   selector: 'app-buy',
@@ -8,52 +9,60 @@ import { AbstractControl, FormGroup, FormControl, Validators } from '@angular/fo
 })
 export class BuyComponent implements OnInit {
   buyForm:FormGroup;
-  warn = false;
-
-  master = [
-    {
-      ticker: "INFY",
-      company: "Infosys",
-      marketPrice: 1000
-    },
-    {
-      ticker: "TCS",
-      company: "Tata Consultancy Services",
-      marketPrice: 1100
-    },
-    {
-      ticker: "WIPRO",
-      company: "Wipro Limited",
-      marketPrice: 370
-    },
-    {
-      ticker: "ARTL",
-      company: "Bharti Airtel",
-      marketPrice: 410
-    },
-    {
-      ticker: "LT",
-      company: "Larsen and Toubro",
-      marketPrice: 1400
-    }
-  ];
+  loading = false;
+  errorMessage:String;
+  successMessage: String;
+  master = [];
 
   isValid(controlName){
     return this.buyForm.get(controlName).invalid && this.buyForm.get(controlName).touched;
   }
-  constructor() { }
+  constructor(private _order:OrderService) { }
 
   ngOnInit() {
+    this.loading = true;
+
     this.buyForm = new FormGroup({
     ticker: new FormControl('', [ Validators.required ]),
     bprice: new FormControl('', [ Validators.required]),
     qty: new FormControl('', [ Validators.required]),
     limit: new FormControl('', [ Validators.required]),
     });
+
+    this._order.getStocks().subscribe(
+      data => {
+        this.master = Object.keys(data).map(i => data[i]);
+        this.loading = false;
+      },
+      error => {
+        // this.errorMessage = error.error || 'Something went wrong.';
+        this.loading = false;
+        console.log(error.error);
+      }
+    );
   }
 
   onSubmit() {
-    this.warn = true;
-  }
+    this.loading = true;
+    const body = {
+      ticker: this.buyForm.value.ticker.ticker,
+      bprice: this.buyForm.value.bprice,
+      qty: this.buyForm.value.qty,
+      limit: this.buyForm.value.limit
+    }
 
+    if(this.buyForm.valid){
+      this._order.sell(body).subscribe(
+        data => {
+          this.successMessage = 'Your order is placed successfully. Order ID is ' + data.orderId;
+          this.loading = false;
+        },
+        error => {
+          this.errorMessage = error.error || 'Something went wrong.';
+          this.loading = false;
+        // console.log(error.error);
+        }
+      );
+    }
+  }
 }

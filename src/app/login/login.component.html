@@ -13,12 +13,12 @@
 </nav>
 <!-- <p>This application is in Development Phase.</p> -->
 <!-- Status -->
-<p *ngIf="successMessage" class="m-auto">
+<div *ngIf="successMessage" class="alert alert-danger">
 {{successMessage}}
-</p>
-<p *ngIf="errorMessage && !successMessage">Status: {{errorMessage}}</p>
+</div>
+<!-- <p *ngIf="errorMessage && !successMessage">Status: {{errorMessage}}</p> -->
 <div *ngIf="errorMessage && !successMessage" id="error" class="alert alert-danger">
-  Invalid credentials
+  Invalid credentials. Error:{{errorMessage}}
 </div>
 
 <div *ngIf="!successMessage" class="col-md-6 offset-md-3 mt-5">
