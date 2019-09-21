@@ -1,31 +1,36 @@
 <nav>
     <div class="logo">
-      <span>
+      <a routerLink="/home" routerLinkActive="active-link" [routerLinkActiveOptions]="{exact:
+true}">
         <strong class="brand">Online Trading</strong>
-      </span>
+      </a>
     </div>
     <hr>
   
     <div class="nav-items">
-      <a routerLink='/login'><strong>Buy</strong></a>
+      <a routerLink='/buy' routerLinkActive="active-link" [routerLinkActiveOptions]="{exact:
+true}"><strong>Buy</strong></a>
     </div>
     <hr>
     <div class="nav-items">
-      <a routerLink='/login'><strong>Sell</strong></a>
+      <a routerLink='/sell'  routerLinkActive="active-link" [routerLinkActiveOptions]="{exact:
+true}"><strong>Sell</strong></a>
     </div>
     <hr>
     <div class="nav-items">
-      <a routerLink='/login'><strong>Order</strong></a>
+      <a routerLink='/order' routerLinkActive="active-link" [routerLinkActiveOptions]="{exact:
+true}"><strong>Orders</strong></a>
     </div>
     <hr>
     <div class="nav-items">
-      <a routerLink='/login'><strong>Trades</strong></a>
+      <a routerLink='/trades' routerLinkActive="active-link" [routerLinkActiveOptions]="{exact:
+true}"><strong>Trades</strong></a>
     </div>
     <hr>
   
     <div class="nav-user">
       <div>Welcome <span style="color:darkorange">{{user}}</span></div>
-      <a routerLink="/"><strong>Log out</strong></a>
+      <a class="btn btn-success btn-sm" (click)="logout()"><strong>Logout</strong></a>
     </div>
       <hr>
   </nav>

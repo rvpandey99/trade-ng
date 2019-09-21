@@ -1,0 +1,63 @@
+<app-navbar></app-navbar>
+<p *ngIf="successMessage" class="m-auto">
+{{successMessage}}
+</p>
+<p *ngIf="errorMessage && !successMessage">Status: {{errorMessage}}</p>
+<div *ngIf="errorMessage && !successMessage" id="error" class="alert alert-danger">
+  You can not buy and sell same stocks twice in a day.
+</div>
+<div *ngIf="warn" id="warn" class="alert alert-danger">
+  Backend and submit functionality has not been implemented yet. Your form contains below data:
+  <br> {{sellForm.value | json}}
+</div>
+
+<div *ngIf="!successMessage" class="col-md-6 offset-md-3 mt-3">
+  <div class="card">
+    <h4 class="card-header">Sell</h4>
+    <div class="card-body">
+      <form [formGroup]="sellForm" (ngSubmit)="onSubmit()">
+        
+        <div class="form-group">
+          <label for="ticker">Ticker:</label> 
+          <select formControlName="ticker" class="custom-select my-1 mr-sm-2" id="ticker">
+            <option *ngFor="let data of master" [ngValue]="data">
+              {{ data.ticker }}
+            </option>
+          </select>
+          <span *ngIf="isValid('ticker')">Ticker is required.</span>
+        </div>
+        
+        <div class="form-group">
+          <label for="mprice" >Market Price: </label>
+          <div id="mprice" class="form-control border-success text-success">{{sellForm.value.ticker.marketPrice}} </div>
+        </div>
+
+        <div class="form-group ">
+          <label for="aprice" >Ask Price:</label>
+          <input type="number" class="form-control" formControlName="aprice" id="aprice">
+          <span *ngIf="isValid('aprice')" >Ask Price is required.</span>
+        </div>
+
+        <div class="form-group ">
+          <label for="qty" >Quantity:</label>
+          <input type="number" class="form-control" formControlName="qty" id="qty">
+          <span *ngIf="isValid('qty')" >Quantity is required.</span>
+        </div>
+
+        <div class="form-group">
+          <label for="limit">Limit:</label> 
+          <select formControlName="limit" class="custom-select my-1 mr-sm-2" id="limit">
+            <option value="1">1%</option>
+            <option value="2">2%</option>
+          </select>
+          <span *ngIf="isValid('limit')">Limit is required.</span>
+        </div>
+
+        <button [disabled]="!sellForm.valid || loading" type="submit" class="btn btn-success" id="buy">
+          <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>
+          Submit
+        </button>
+      </form>
+    </div>
+  </div>
+</div>

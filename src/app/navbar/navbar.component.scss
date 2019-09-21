@@ -1,13 +1,14 @@
 hr {
-    width: 100vw;
-    height: 2px;
+    width: 100%;
+    height: 1px;
     background-color: #CFCFCF;
     border: none;
     margin: 0;
 }
-
+  
 strong {
     font-weight: 600;
+    padding-top: 1rem;
 }
 
 nav > div {
@@ -20,18 +21,32 @@ nav > div {
 }
 
 a {
-    color: black;
+    color: green;
     text-decoration: none;
+}
+.nav-items > a {
+    line-height: 3rem;
 }
 
 a:hover{
     color:darkorange;
 }
 
+.active-link {
+  border-bottom: 4px solid orange;
+  padding-bottom: 5px;
+}
+
+.nav-user > a {
+  color: white;
+  cursor: pointer;
+}
+
 nav {
     display: grid;
     justify-items: center;
     text-align: center;
+    background-color: #F7F7F7;
 }
 @media (min-width: 45rem) {
     nav {
